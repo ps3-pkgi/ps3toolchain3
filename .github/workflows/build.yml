@@ -36,8 +36,8 @@ jobs:
           sudo apt-get -y install \
             autoconf automake bison flex gcc libelf-dev make texinfo \
             libncurses5-dev patch python3 python-is-python3 subversion \
-            wget zlib1g-dev libtool-bin python3-dev bzip2 libgmp3-dev \
-            pkg-config libssl-dev
+            aria2 zlib1g-dev libtool-bin python3-dev bzip2 libgmp3-dev \
+            pkg-config libssl-dev cmake
 
       # ------------------------
       # macOS dependencies
@@ -52,8 +52,8 @@ jobs:
         run: |
           eval "$(brew shellenv)"
           brew install \
-            autoconf automake openssl libelf ncurses zlib gmp wget \
-            pkg-config texinfo
+            autoconf automake libtool openssl libelf ncurses zlib gmp aria2 \
+            pkg-config texinfo cmake
 
       # ------------------------
       # GLOBAL ENV SETUP
@@ -121,12 +121,17 @@ jobs:
       - name: Build PSL1GHT
         run: BUILD_PS3TOOLCHAIN_ONLY= ./toolchain.sh 008
 
+      # Step 009 installs the portlibs into $PS3DEV/portlibs/ppu.
+      # It also skips itself when BUILD_PS3TOOLCHAIN_ONLY is set.
+      - name: Build ps3libraries
+        run: BUILD_PS3TOOLCHAIN_ONLY= ./toolchain.sh 009
+
       - name: Get short SHA
         id: slug
         run: echo "sha8=${GITHUB_SHA::8}" >> "$GITHUB_OUTPUT"
 
       - name: Compress ps3dev folder
-        run: tar -zcvf ps3dev-${{ matrix.os }}-${{ runner.arch }}.tar.gz ps3dev
+        run: tar -zcf ps3dev-${{ matrix.os }}-${{ runner.arch }}.tar.gz ps3dev
 
       - uses: actions/upload-artifact@v7
         with:

@@ -19,7 +19,7 @@
 ## Set up your environment by installing the following software:
 
   autoconf, automake, bison, flex, gcc, libelf, make, makeinfo,
-  ncurses, patch, python, subversion, wget, zlib, libtool,
+  ncurses, patch, python, subversion, aria2, zlib, libtool,
   bzip2, gmp, pkg-config, g++, libssl-dev, clang
 
 ### Linux
@@ -28,7 +28,7 @@ For Debian based distros:
 
 ```bash
   apt-get install autoconf automake bison flex gcc libelf-dev make \
-    texinfo libncurses5-dev patch python subversion wget zlib1g-dev \
+    texinfo libncurses5-dev patch python subversion aria2 zlib1g-dev \
     libtool libtool-bin python-dev bzip2 libgmp3-dev pkg-config g++ libssl-dev clang
 ```
 
@@ -46,7 +46,7 @@ For RedHat distros:
 
 ```bash 
   sudo dnf install bison flex gcc elfutils-libelf-devel make python path \
-  wget zlib-devel libtool python3-devel bzip2 gmp-devel pkg-config gcc \
+  aria2 zlib-devel libtool python3-devel bzip2 gmp-devel pkg-config gcc \
   openssl-devel texinfo ncurses-devel
 ```
 
@@ -56,7 +56,7 @@ For RedHat distros:
   be enough to install everything necessary:
 
 ```bash
-  brew install autoconf automake openssl libelf ncurses zlib gmp wget pkg-config texinfo
+  brew install autoconf automake openssl libelf ncurses zlib gmp aria2 pkg-config texinfo
 ```
 
 ### Windows

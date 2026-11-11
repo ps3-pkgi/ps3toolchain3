@@ -118,8 +118,8 @@ INSTALL_PACKAGES=
 	if [ ! -f /mingw/bin/pexports ]; then 
 		INSTALL_PACKAGES+="pexports "
 	fi
-	if [ ! -f /usr/bin/wget ]; then 
-		INSTALL_PACKAGES+="msys-wget "
+	if [ ! -f /usr/bin/aria2c ]; then 
+		INSTALL_PACKAGES+="msys-aria2 "
 	fi	
 	if [ ! -f /usr/bin/patch ]; then 
 		INSTALL_PACKAGES+="msys-patch "
@@ -140,8 +140,8 @@ INSTALL_PACKAGES=
 
 	## Install libelf
 	if [ ! -f /mingw/include/libelf.h ]; then 
-		wget http://www.mr511.de/software/libelf-0.8.13.tar.gz
-		tar -zxvf libelf-0.8.13.tar.gz
+		aria2c http://www.mr511.de/software/libelf-0.8.13.tar.gz
+		tar -zxf libelf-0.8.13.tar.gz
 		cd libelf-0.8.13
 		./configure --prefix="/mingw"
 		make -j4 && make install
@@ -151,15 +151,15 @@ INSTALL_PACKAGES=
 
 	## Install pkg-config and dependancy dll's
 	if [ ! -f /usr/bin/pkg-config ]; then 
-		wget https://ftp.gnome.org/pub/gnome/binaries/win32/dependencies/pkg-config_0.25-1_win32.zip
+		aria2c https://ftp.gnome.org/pub/gnome/binaries/win32/dependencies/pkg-config_0.25-1_win32.zip
 		unzip -o pkg-config_0.25-1_win32.zip bin/*.exe -d /usr > NUL
 	fi
 	if [ ! -f /usr/bin/intl.dll ]; then 	
-		wget https://ftp.gnome.org/pub/gnome/binaries/win32/dependencies/gettext-runtime_0.18.1.1-2_win32.zip
+		aria2c https://ftp.gnome.org/pub/gnome/binaries/win32/dependencies/gettext-runtime_0.18.1.1-2_win32.zip
 		unzip -o gettext-runtime_0.18.1.1-2_win32.zip bin/*.dll -d /usr > NUL
 	fi
 	if [ ! -f /usr/bin/libglib-2.0-0.dll ]; then 
-		wget https://ftp.gnome.org/pub/gnome/binaries/win32/glib/2.26/glib_2.26.1-1_win32.zip
+		aria2c https://ftp.gnome.org/pub/gnome/binaries/win32/glib/2.26/glib_2.26.1-1_win32.zip
 		unzip -o glib_2.26.1-1_win32.zip bin/*.dll -d /usr > NUL
 	fi
 

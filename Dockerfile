@@ -13,7 +13,7 @@ RUN \
   apt-get -y install \
   autoconf bison build-essential ca-certificates flex git libelf-dev\
   libgmp-dev libncurses5-dev libssl-dev libtool-bin pkg-config \
-  texinfo wget zlib1g-dev && \
+  texinfo aria2 zlib1g-dev && \
   apt-get -y clean autoclean autoremove && \
   rm -rf /var/lib/{apt,dpkg,cache,log}/
 
@@ -22,6 +22,6 @@ WORKDIR /build
 COPY . /build
 
 # Fixes certificate errors with letsencrypt in ARMv7
-# RUN echo "\nca_certificate=/etc/ssl/certs/ca-certificates.crt" | tee -a /etc/wgetrc
+# RUN echo "\nca-certificate=/etc/ssl/certs/ca-certificates.crt" | tee -a /etc/aria2.conf
 # RUN /build/toolchain.sh
 

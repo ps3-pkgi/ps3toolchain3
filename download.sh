@@ -6,7 +6,9 @@ cd archives || exit 1
 
 ARCHIVE="archives.txt"
 # 15s was aborting slow Sourceware transfers. Keep the partial file and resume.
-WGET_OPTS=(--continue --tries=20 --timeout=60 --waitretry=5 --retry-connrefused --quiet --show-progress)
+ARIA2_OPTS=(--continue=true --max-tries=20 --timeout=60 --retry-wait=5
+            --console-log-level=warn --allow-overwrite=true
+            --auto-file-renaming=false --summary-interval=0 --async-dns=false)
 
 # -----------------------------------------------------------------------------
 # verify_sha256 <file> <expected_sha>
@@ -84,7 +86,7 @@ fetch() {
     for url in "$@"; do
         [ -n "$url" ] || continue
         echo "  -> $url"
-        if wget "${WGET_OPTS[@]}" -O "$dest" "$url"; then
+        if aria2c "${ARIA2_OPTS[@]}" -o "$dest" "$url"; then
             return 0
         fi
         echo "  !! failed, trying next mirror..." >&2

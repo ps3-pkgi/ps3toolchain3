@@ -26,8 +26,11 @@ fetch_config_file() {
       chmod +x "${file}"
       return 0
     fi
-  elif command -v wget >/dev/null 2>&1; then
-    if wget --timeout="${CONFIG_TIMEOUT}" --tries=1 -O "${tmp}" "${url}"; then
+  elif command -v aria2c >/dev/null 2>&1; then
+    if aria2c --max-tries=1 --timeout="${CONFIG_TIMEOUT}" \
+        --console-log-level=warn --allow-overwrite=true \
+        --auto-file-renaming=false --summary-interval=0 --async-dns=false \
+        -o "${tmp}" "${url}"; then
       mv "${tmp}" "${file}"
       chmod +x "${file}"
       return 0
@@ -35,7 +38,7 @@ fetch_config_file() {
   fi
 
   echo "Falling back to safe ${file}."
-  rm -f "${tmp}"
+  rm -f "${tmp}" "${tmp}.aria2"
   cp "${CONFIG_DIR}/${file}" "${file}"
   chmod +x "${file}"
 }

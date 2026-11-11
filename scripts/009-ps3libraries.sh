@@ -20,5 +20,12 @@ echo "Unpacking ps3libraries"
 extract ../archives/ps3libraries.tar.gz --strip-components=1 --directory=ps3libraries
 cd ps3libraries
 
+## ps3libraries downloads with wget; switch it to aria2.
+rm -f depends/check-wget.sh
+sed -i.bak -e '/^WGET=/d' \
+  -e 's|^[[:space:]]*\$WGET -O "\$dest" "\$url"|aria2c -c --max-tries=5 --timeout=30 --console-log-level=warn --allow-overwrite=true --auto-file-renaming=false --summary-interval=0 --async-dns=false -o "$dest" "$url"|' \
+  download.sh
+rm -f download.sh.bak
+
 ## Compile and install.
 ./libraries.sh

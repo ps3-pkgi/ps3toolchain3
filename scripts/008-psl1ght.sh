@@ -21,4 +21,4 @@ extract ../archives/psl1ght.tar.gz --strip-components=1 --directory=psl1ght
 cd psl1ght
 
 ## Compile and install.
-${MAKE:-make} install-ctrl && ${MAKE:-make} && ${MAKE:-make} install
+${MAKE:-make} VERBOSE=1 V=1 install-ctrl && ${MAKE:-make} VERBOSE=1 V=1 && ${MAKE:-make} VERBOSE=1 V=1 install

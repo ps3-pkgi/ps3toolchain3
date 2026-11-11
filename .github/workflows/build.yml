@@ -16,6 +16,9 @@ jobs:
           - runner: ubuntu-latest
             os: linux
 
+          - runner: ubuntu-24.04-arm
+            os: linux
+
           - runner: macos-15-intel
             os: macos
 
@@ -113,6 +116,10 @@ jobs:
       - name: Build GDB (SPU)
         run: ./toolchain.sh 007
 
+      # Step 008 skips itself when BUILD_PS3TOOLCHAIN_ONLY is set.
+      - name: Build PSL1GHT
+        run: BUILD_PS3TOOLCHAIN_ONLY= ./toolchain.sh 008
+
       - name: Get short SHA
         id: slug
         run: echo "sha8=${GITHUB_SHA::8}" >> "$GITHUB_OUTPUT"
@@ -128,7 +135,7 @@ jobs:
   push_release:
     if: |
       github.event_name == 'push' &&
-      github.repository == 'ps3dev/ps3toolchain'
+      github.repository == 'ps3-pkgi/ps3toolchain3'
     needs: build
     runs-on: ubuntu-latest
     permissions:
